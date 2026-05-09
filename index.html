@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Desván Cultural</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5ecd7;
+    --warm-white: #faf6ee;
+    --brown-dark: #2c1a0e;
+    --brown-mid: #5c3d1e;
+    --brown-light: #8b6040;
+    --amber: #c8860a;
+    --amber-light: #e8a020;
+    --rust: #a83820;
+    --sage: #6b7c5a;
+    --ink: #1a1008;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--brown-dark);
+    font-family: 'Josefin Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.07'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* HEADER */
+  header {
+    background-color: var(--brown-dark);
+    padding: 0 2rem;
+    border-bottom: 4px solid var(--amber);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0 0.5rem;
+    border-bottom: 1px solid var(--brown-mid);
+  }
+
+  .header-date {
+    color: var(--amber-light);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .logo {
+    text-align: center;
+    flex: 1;
+  }
+
+  .logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-shadow: 2px 2px 0 var(--amber);
+  }
+
+  .logo-sub {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: var(--amber-light);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+  }
+
+  .header-tagline {
+    color: var(--brown-light);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-align: right;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  nav {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    padding: 0.4rem 0;
+  }
+
+  nav a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    transition: all 0.2s;
+    border-right: 1px solid var(--brown-mid);
+    font-weight: 600;
+  }
+  nav a:first-child { border-left: 1px solid var(--brown-mid); }
+  nav a:hover, nav a.active { background: var(--amber); color: var(--brown-dark); }
+
+  /* HERO BANNER */
+  .hero {
+    background: var(--brown-dark);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px double var(--amber);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(200,134,10,0.15) 0%, transparent 70%);
+  }
+
+  .hero-ornament {
+    color: var(--amber);
+    font-size: 1.2rem;
+    letter-spacing: 0.5em;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: var(--cream);
+    font-style: italic;
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+  }
+
+  .hero h1 em {
+    color: var(--amber-light);
+    font-style: normal;
+  }
+
+  .hero p {
+    color: var(--brown-light);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+  }
+
+  .hero-divider {
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--amber), transparent);
+    margin: 1rem auto;
+  }
+
+  /* MAIN LAYOUT */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2.5rem;
+  }
+
+  /* SECTION TITLES */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--brown-mid);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+  }
+
+  .section-tag {
+    background: var(--rust);
+    color: var(--cream);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    font-weight: 600;
+  }
+
+  /* BOOK CARDS */
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .book-card {
+    background: var(--warm-white);
+    border: 1px solid #d4c4a0;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 2px 2px 0 #d4c4a0;
+  }
+
+  .book-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--amber);
+  }
+
+  .book-cover {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    background: var(--brown-mid);
+  }
+
+  /* Placeholder covers using CSS */
+  .cover-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-1 { background: linear-gradient(135deg, #2c3e50, #34495e); }
+  .cover-2 { background: linear-gradient(135deg, #7b3f00, #c0392b); }
+  .cover-3 { background: linear-gradient(135deg, #1a472a, #2d6a4f); }
+  .cover-4 { background: linear-gradient(135deg, #4a235a, #7d3c98); }
+  .cover-5 { background: linear-gradient(135deg, #1b2631, #922b21); }
+  .cover-6 { background: linear-gradient(135deg, #0b3d6b, #1a5276); }
+
+  .cover-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .cover-placeholder .cover-author {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.8rem;
+  }
+
+  .cover-placeholder .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .cover-placeholder .cover-line {
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.4);
+    margin: 0.5rem auto;
+  }
+
+  .cover-placeholder .cover-genre {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .card-new {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    background: var(--amber);
+    color: var(--brown-dark);
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-meta {
+    font-size: 0.65rem;
+    color: var(--brown-light);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.2rem;
+    color: var(--brown-dark);
+  }
+
+  .card-author {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--brown-mid);
+    margin-bottom: 0.6rem;
+  }
+
+  .card-desc {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #5a4030;
+    margin-bottom: 0.8rem;
+    font-family: 'IM Fell English', serif;
+  }
+
+  .card-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .stars { color: var(--amber); font-size: 0.8rem; }
+  .rating-text { font-size: 0.65rem; color: var(--brown-light); letter-spacing: 0.05em; }
+
+  /* AFFILIATE BUTTONS */
+  .buy-section {
+    border-top: 1px dashed #c8b89a;
+    padding-top: 0.8rem;
+  }
+
+  .buy-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .buy-links {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .buy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid;
+    transition: all 0.15s;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+
+  .buy-btn.amazon {
+    border-color: #ff9900;
+    color: #ff9900;
+    background: transparent;
+  }
+  .buy-btn.amazon:hover { background: #ff9900; color: #fff; }
+
+  .buy-btn.fnac {
+    border-color: #e8a020;
+    color: #e8a020;
+    background: transparent;
+  }
+  .buy-btn.fnac:hover { background: #e8a020; color: #fff; }
+
+  .buy-btn.casadellibro {
+    border-color: var(--sage);
+    color: var(--sage);
+    background: transparent;
+  }
+  .buy-btn.casadellibro:hover { background: var(--sage); color: #fff; }
+
+  .buy-btn.iberlibro {
+    border-color: var(--rust);
+    color: var(--rust);
+    background: transparent;
+  }
+  .buy-btn.iberlibro:hover { background: var(--rust); color: #fff; }
+
+  /* FEATURED BOOK */
+  .featured-book {
+    grid-column: 1 / -1;
+    background: var(--brown-dark);
+    color: var(--cream);
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    border: 3px solid var(--amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .featured-cover {
+    overflow: hidden;
+  }
+
+  .featured-cover .cover-placeholder {
+    height: 100%;
+    aspect-ratio: unset;
+  }
+
+  .featured-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .featured-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .featured-badge::before, .featured-badge::after {
+    content: '◆';
+    font-size: 0.4rem;
+  }
+
+  .featured-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    font-style: italic;
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+  }
+
+  .featured-author {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: var(--amber-light);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .featured-desc {
+    font-family: 'IM Fell English', serif;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #c8b89a;
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+  }
+
+  .featured-buy {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .featured-buy .buy-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.68rem;
+  }
+
+  /* SIDEBAR */
+  aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+
+  .sidebar-widget {
+    background: var(--warm-white);
+    border: 1px solid #d4c4a0;
+    padding: 1.2rem;
+  }
+
+  .widget-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--amber);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .widget-title span { font-size: 0.7rem; color: var(--brown-light); font-family: 'Josefin Sans', sans-serif; font-weight: 400; }
+
+  /* TOP LIST */
+  .top-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .top-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 0.6rem;
+    align-items: start;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px dashed #d4c4a0;
+  }
+  .top-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .top-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--amber);
+    line-height: 1;
+  }
+
+  .top-info {}
+  .top-title { font-size: 0.8rem; font-weight: 600; color: var(--brown-dark); line-height: 1.2; }
+  .top-author { font-size: 0.68rem; color: var(--brown-light); font-family: 'IM Fell English', serif; font-style: italic; }
+
+  .top-item-links { margin-top: 0.3rem; display: flex; gap: 0.3rem; }
+  .mini-link {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.4rem;
+    text-decoration: none;
+    border: 1px solid;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: 'Josefin Sans', sans-serif;
+    transition: all 0.15s;
+  }
+  .mini-link.amz { border-color: #ff9900; color: #ff9900; }
+  .mini-link.amz:hover { background: #ff9900; color: white; }
+  .mini-link.fnc { border-color: var(--amber); color: var(--amber); }
+  .mini-link.fnc:hover { background: var(--amber); color: white; }
+  .mini-link.cdl { border-color: var(--sage); color: var(--sage); }
+  .mini-link.cdl:hover { background: var(--sage); color: white; }
+
+  /* CATEGORIES WIDGET */
+  .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .cat-btn {
+    background: var(--brown-dark);
+    color: var(--cream);
+    border: none;
+    padding: 0.6rem;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    transition: background 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .cat-btn:hover { background: var(--amber); color: var(--brown-dark); }
+  .cat-icon { font-size: 1.2rem; }
+
+  /* NEWSLETTER */
+  .newsletter-box {
+    background: var(--brown-dark);
+    padding: 1.2rem;
+    text-align: center;
+    border: 2px solid var(--amber);
+  }
+
+  .newsletter-box p {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: var(--cream);
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .newsletter-input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--amber);
+    color: var(--cream);
+    padding: 0.5rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+    outline: none;
+  }
+
+  .newsletter-input::placeholder { color: var(--brown-light); }
+  .newsletter-input:focus { border-color: var(--amber-light); }
+
+  .newsletter-btn {
+    width: 100%;
+    background: var(--amber);
+    color: var(--brown-dark);
+    border: none;
+    padding: 0.5rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .newsletter-btn:hover { background: var(--amber-light); }
+
+  /* FOOTER */
+  footer {
+    background: var(--brown-dark);
+    color: var(--brown-light);
+    padding: 2rem;
+    margin-top: 2rem;
+    border-top: 4px solid var(--amber);
+    text-align: center;
+  }
+
+  .footer-ornament {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-note {
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: #6b5540;
+  }
+
+  .footer-affiliate {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: #4a3520;
+    margin-top: 1rem;
+    text-transform: uppercase;
+  }
+
+  /* DIVIDER ORNAMENT */
+  .ornament-divider {
+    text-align: center;
+    color: var(--amber);
+    font-size: 0.8rem;
+    letter-spacing: 0.5em;
+    margin: 1.5rem 0;
+    opacity: 0.6;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    main { grid-template-columns: 1fr; }
+    .books-grid { grid-template-columns: 1fr; }
+    .featured-book { grid-template-columns: 1fr; }
+    .featured-cover .cover-placeholder { aspect-ratio: 16/9; }
+    .logo-main { font-size: 1.8rem; }
+    .header-date, .header-tagline { display: none; }
+    nav a { padding: 0.4rem 0.7rem; font-size: 0.65rem; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .book-card, .featured-book {
+    animation: fadeUp 0.5s ease both;
+  }
+  .book-card:nth-child(1) { animation-delay: 0.05s; }
+  .book-card:nth-child(2) { animation-delay: 0.1s; }
+  .book-card:nth-child(3) { animation-delay: 0.15s; }
+  .book-card:nth-child(4) { animation-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <div class="header-date">Mayo · 2026 · Madrid</div>
+    <div class="logo">
+      <div class="logo-main">El Desván Cultural</div>
+      <div class="logo-sub">Libros · Música · Cine · Coleccionismo</div>
+    </div>
+    <div class="header-tagline">Donde la cultura<br>encuentra hogar</div>
+  </div>
+  <nav>
+    <a href="#" class="active">Libros</a>
+    <a href="#">Música</a>
+    <a href="#">Cine & DVD</a>
+    <a href="#">Cómics</a>
+    <a href="#">Videojuegos</a>
+    <a href="#">Coleccionismo</a>
+    <a href="#">Novedades</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ornament">✦ ✦ ✦</div>
+  <h1>Libros que <em>perduran</em><br>en el tiempo</h1>
+  <div class="hero-divider"></div>
+  <p>Selección mensual de títulos imprescindibles, con los mejores precios en cada tienda</p>
+</section>
+
+<!-- MAIN -->
+<main>
+  <div>
+
+    <!-- DESTACADO DEL MES -->
+    <div class="section-header">
+      <span class="section-title">Destacado del mes</span>
+      <span class="section-tag">⭐ Selección editorial</span>
+    </div>
+
+    <div class="featured-book">
+      <div class="featured-cover">
+        <div class="cover-placeholder cover-1">
+          <div class="cover-author">Gabriel García Márquez</div>
+          <div class="cover-title">Cien Años de Soledad</div>
+          <div class="cover-line"></div>
+          <div class="cover-genre">Literatura latinoamericana</div>
+        </div>
+      </div>
+      <div class="featured-body">
+        <div class="featured-badge">Destacado del mes</div>
+        <div class="featured-title">Cien Años de Soledad</div>
+        <div class="featured-author">Gabriel García Márquez</div>
+        <div class="featured-desc">
+          La novela cumbre del realismo mágico. La saga de los Buendía en Macondo es una de las obras más importantes de la literatura universal, capaz de atrapar al lector desde la primera hasta la última página.
+        </div>
+        <div class="featured-buy">
+          <a href="https://www.amazon.es/s?k=cien+años+de+soledad" target="_blank" class="buy-btn amazon">▶ Amazon</a>
+          <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=cien+a%C3%B1os+de+soledad" target="_blank" class="buy-btn fnac">▶ Fnac</a>
+          <a href="https://www.casadellibro.com/busqueda/libros?q=cien+a%C3%B1os+de+soledad" target="_blank" class="buy-btn casadellibro">▶ Casa del Libro</a>
+          <a href="https://www.iberlibro.com/servlet/SearchResults?kn=cien+a%C3%B1os+de+soledad" target="_blank" class="buy-btn iberlibro">▶ IberLibro</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ornament-divider">— ◆ —</div>
+
+    <!-- SELECCIÓN -->
+    <div class="section-header">
+      <span class="section-title">Selección del Desván</span>
+      <span class="section-tag">↓ Imprescindibles</span>
+    </div>
+
+    <div class="books-grid">
+
+      <!-- LIBRO 1 -->
+      <div class="book-card">
+        <div class="cover-placeholder cover-2">
+          <div class="cover-author">Albert Camus</div>
+          <div class="cover-title">El Extranjero</div>
+          <div class="cover-line"></div>
+          <div class="cover-genre">Existencialismo</div>
+        </div>
+        <div class="card-new">Clásico</div>
+        <div class="card-body">
+          <div class="card-meta">Literatura · Filosofía</div>
+          <div class="card-title">El Extranjero</div>
+          <div class="card-author">Albert Camus</div>
+          <div class="card-desc">Un hombre mata sin motivo aparente y afronta el juicio de una sociedad que no comprende su indiferencia. Obra esencial del existencialismo del siglo XX.</div>
+          <div class="card-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-text">9.2 · 4.800 lectores</span>
+          </div>
+          <div class="buy-section">
+            <div class="buy-label">Comprar en:</div>
+            <div class="buy-links">
+              <a href="https://www.amazon.es/s?k=el+extranjero+camus" target="_blank" class="buy-btn amazon">Amazon</a>
+              <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=el+extranjero+camus" target="_blank" class="buy-btn fnac">Fnac</a>
+              <a href="https://www.casadellibro.com/busqueda/libros?q=el+extranjero+camus" target="_blank" class="buy-btn casadellibro">Casa del Libro</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIBRO 2 -->
+      <div class="book-card">
+        <div class="cover-placeholder cover-3">
+          <div class="cover-author">Fyodor Dostoevski</div>
+          <div class="cover-title">Crimen y Castigo</div>
+          <div class="cover-line"></div>
+          <div class="cover-genre">Literatura rusa</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">Literatura · Psicología</div>
+          <div class="card-title">Crimen y Castigo</div>
+          <div class="card-author">Fyodor Dostoevski</div>
+          <div class="card-desc">Un estudiante comete un crimen y lucha contra su propia conciencia. Una novela que explora los límites de la moralidad humana con una profundidad psicológica sin igual.</div>
+          <div class="card-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-text">9.4 · 7.200 lectores</span>
+          </div>
+          <div class="buy-section">
+            <div class="buy-label">Comprar en:</div>
+            <div class="buy-links">
+              <a href="https://www.amazon.es/s?k=crimen+y+castigo+dostoevski" target="_blank" class="buy-btn amazon">Amazon</a>
+              <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=crimen+y+castigo" target="_blank" class="buy-btn fnac">Fnac</a>
+              <a href="https://www.iberlibro.com/servlet/SearchResults?kn=crimen+castigo" target="_blank" class="buy-btn iberlibro">IberLibro</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIBRO 3 -->
+      <div class="book-card">
+        <div class="cover-placeholder cover-4">
+          <div class="cover-author">George Orwell</div>
+          <div class="cover-title">1984</div>
+          <div class="cover-line"></div>
+          <div class="cover-genre">Distopía</div>
+        </div>
+        <div class="card-new">Más vendido</div>
+        <div class="card-body">
+          <div class="card-meta">Ficción · Política</div>
+          <div class="card-title">1984</div>
+          <div class="card-author">George Orwell</div>
+          <div class="card-desc">En un estado totalitario donde el Gran Hermano lo vigila todo, Winston Smith intenta mantener su humanidad. La distopía más influyente jamás escrita.</div>
+          <div class="card-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-text">9.1 · 12.000 lectores</span>
+          </div>
+          <div class="buy-section">
+            <div class="buy-label">Comprar en:</div>
+            <div class="buy-links">
+              <a href="https://www.amazon.es/s?k=1984+orwell" target="_blank" class="buy-btn amazon">Amazon</a>
+              <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=1984+orwell" target="_blank" class="buy-btn fnac">Fnac</a>
+              <a href="https://www.casadellibro.com/busqueda/libros?q=1984+orwell" target="_blank" class="buy-btn casadellibro">Casa del Libro</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIBRO 4 -->
+      <div class="book-card">
+        <div class="cover-placeholder cover-5">
+          <div class="cover-author">Franz Kafka</div>
+          <div class="cover-title">La Metamorfosis</div>
+          <div class="cover-line"></div>
+          <div class="cover-genre">Absurdismo</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">Literatura · Filosofía</div>
+          <div class="card-title">La Metamorfosis</div>
+          <div class="card-author">Franz Kafka</div>
+          <div class="card-desc">Gregor Samsa despierta convertido en un insecto gigante. La alegoría más perturbadora y brillante sobre la alienación moderna y las relaciones familiares.</div>
+          <div class="card-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-text">8.8 · 9.500 lectores</span>
+          </div>
+          <div class="buy-section">
+            <div class="buy-label">Comprar en:</div>
+            <div class="buy-links">
+              <a href="https://www.amazon.es/s?k=la+metamorfosis+kafka" target="_blank" class="buy-btn amazon">Amazon</a>
+              <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=la+metamorfosis+kafka" target="_blank" class="buy-btn fnac">Fnac</a>
+              <a href="https://www.iberlibro.com/servlet/SearchResults?kn=metamorfosis+kafka" target="_blank" class="buy-btn iberlibro">IberLibro</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /books-grid -->
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside>
+
+    <!-- TOP 5 -->
+    <div class="sidebar-widget">
+      <div class="widget-title">Top 5 esta semana <span>↑ Más buscados</span></div>
+      <ul class="top-list">
+        <li class="top-item">
+          <span class="top-num">1</span>
+          <div class="top-info">
+            <div class="top-title">El nombre de la rosa</div>
+            <div class="top-author">Umberto Eco</div>
+            <div class="top-item-links">
+              <a href="https://www.amazon.es/s?k=el+nombre+de+la+rosa" target="_blank" class="mini-link amz">Amazon</a>
+              <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=el+nombre+de+la+rosa" target="_blank" class="mini-link fnc">Fnac</a>
+              <a href="https://www.casadellibro.com/busqueda/libros?q=el+nombre+de+la+rosa" target="_blank" class="mini-link cdl">CdL</a>
+            </div>
+          </div>
+        </li>
+        <li class="top-item">
+          <span class="top-num">2</span>
+          <div class="top-info">
+            <div class="top-title">Don Quijote de la Mancha</div>
+            <div class="top-author">Miguel de Cervantes</div>
+            <div class="top-item-links">
+              <a href="https://www.amazon.es/s?k=don+quijote" target="_blank" class="mini-link amz">Amazon</a>
+              <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=don+quijote" target="_blank" class="mini-link fnc">Fnac</a>
+              <a href="https://www.casadellibro.com/busqueda/libros?q=don+quijote" target="_blank" class="mini-link cdl">CdL</a>
+            </div>
+          </div>
+        </li>
+        <li class="top-item">
+          <span class="top-num">3</span>
+          <div class="top-info">
+            <div class="top-title">El señor de los anillos</div>
+            <div class="top-author">J.R.R. Tolkien</div>
+            <div class="top-item-links">
+              <a href="https://www.amazon.es/s?k=el+señor+de+los+anillos" target="_blank" class="mini-link amz">Amazon</a>
+              <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=se%C3%B1or+de+los+anillos" target="_blank" class="mini-link fnc">Fnac</a>
+              <a href="https://www.casadellibro.com/busqueda/libros?q=señor+de+los+anillos" target="_blank" class="mini-link cdl">CdL</a>
+            </div>
+          </div>
+        </li>
+        <li class="top-item">
+          <span class="top-num">4</span>
+          <div class="top-info">
+            <div class="top-title">Ficciones</div>
+            <div class="top-author">Jorge Luis Borges</div>
+            <div class="top-item-links">
+              <a href="https://www.amazon.es/s?k=ficciones+borges" target="_blank" class="mini-link amz">Amazon</a>
+              <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=ficciones+borges" target="_blank" class="mini-link fnc">Fnac</a>
+              <a href="https://www.casadellibro.com/busqueda/libros?q=ficciones+borges" target="_blank" class="mini-link cdl">CdL</a>
+            </div>
+          </div>
+        </li>
+        <li class="top-item">
+          <span class="top-num">5</span>
+          <div class="top-info">
+            <div class="top-title">Pedro Páramo</div>
+            <div class="top-author">Juan Rulfo</div>
+            <div class="top-item-links">
+              <a href="https://www.amazon.es/s?k=pedro+paramo+rulfo" target="_blank" class="mini-link amz">Amazon</a>
+              <a href="https://www.fnac.es/SearchResult/ResultList.aspx?Search=pedro+p%C3%A1ramo" target="_blank" class="mini-link fnc">Fnac</a>
+              <a href="https://www.casadellibro.com/busqueda/libros?q=pedro+páramo" target="_blank" class="mini-link cdl">CdL</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- CATEGORÍAS -->
+    <div class="sidebar-widget">
+      <div class="widget-title">Explorar categorías</div>
+      <div class="cat-grid">
+        <button class="cat-btn"><span class="cat-icon">📚</span>Libros</button>
+        <button class="cat-btn"><span class="cat-icon">🎵</span>Música</button>
+        <button class="cat-btn"><span class="cat-icon">🎬</span>Cine</button>
+        <button class="cat-btn"><span class="cat-icon">🕹️</span>Juegos</button>
+        <button class="cat-btn"><span class="cat-icon">📖</span>Cómics</button>
+        <button class="cat-btn"><span class="cat-icon">🏺</span>Colección</button>
+      </div>
+    </div>
+
+    <!-- NEWSLETTER -->
+    <div class="newsletter-box">
+      <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--amber);margin-bottom:0.5rem;">La carta del desván</div>
+      <p>Novedades culturales, recomendaciones y las mejores ofertas cada semana en tu correo.</p>
+      <input type="email" class="newsletter-input" placeholder="tu@correo.es">
+      <button class="newsletter-btn">Suscribirme</button>
+    </div>
+
+  </aside>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-ornament">✦</div>
+  <div class="footer-note">
+    El Desván Cultural · Un espacio dedicado a los amantes de la cultura en todas sus formas.<br>
+    Seleccionamos con cuidado cada título para que no pierdas el tiempo.
+  </div>
+  <div class="footer-affiliate">
+    * Los enlaces a tiendas pueden contener identificadores de afiliado. Al comprar a través de ellos, apoyáis este proyecto sin coste adicional para vosotros. Gracias.
+  </div>
+</footer>
+
+</body>
+</html>
